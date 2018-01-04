@@ -106,7 +106,7 @@ public class NoNetFrameLayout extends FrameLayout {
     public void set404Visiable(boolean visiable) {
         if (visiable) {
             view404.setVisibility(View.VISIBLE);
-              bringChildToFront(view404);
+            bringChildToFront(view404);
         } else {
             view404.setVisibility(View.GONE);
         }
@@ -132,6 +132,9 @@ public class NoNetFrameLayout extends FrameLayout {
 ##### 5. 别人提供的方法：Activity layout中添加emptyView，如果Fragment需要显示emptyView，向Activity发送消息，hide fragment，show emptyView，点击事件通过接口回调
 > 个人觉得麻烦，需要fragment和activity来回调用方法，不喜欢
 <br>
+
+## 方法4效果预览
+<a href="image/preview.gif"><img src="image/preview.gif" width="30%" height="30%"/></a>
 
 ## 总结
 * 方法1太麻烦，不推荐
