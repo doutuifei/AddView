@@ -3,12 +3,14 @@
 ## 需求
 >给所有涉及网络请求Activity和Fragment添加一个断网的页面（以下简称emptyView），并且带有点击刷新功能，界面如图
 <br><a href="image/no_net.png"><img src="image/no_net.png" width="30%" height="30%"/></a>
+<br>
 
 ## 方法
-1. 在需要显示emptyView的Activity和Fragment的layout中使用FrameLayout布局包括需要隐藏的内容和emptyView，并且EmptyView要在下方，Visiable设置GONE
+##### 1. 在需要显示emptyView的Activity和Fragment的layout中使用FrameLayout布局包括需要隐藏的内容和emptyView，并且EmptyView要在下方，Visiable设置GONE
 >缺点：方法简单，没有难度，除了麻烦就是麻烦，写着麻烦，看着也麻烦
+<br>
 
-2. 封装一个基本EmptyActivity,重写setContentView()方法，new一个FrameLayout container，add emptyView和通过LayoutInflater得到的View，实例化emptyView中的按钮和点击事件，添加显示的方法。
+##### 2. 封装一个基本EmptyActivity,重写setContentView()方法，new一个FrameLayout container，add emptyView和通过LayoutInflater得到的View，实例化emptyView中的按钮和点击事件，添加显示的方法。
 示例代码
 ```
 public class EmptyActivity extends AppCompatActivity {
@@ -65,12 +67,14 @@ public class EmptyActivity extends AppCompatActivity {
 
 ```
 > 缺点：新添加的emptyView是全屏效果的，会遮盖导航栏，UI肯定不会同意的
+<br>
 
-3. EmptyFragment与EmptyActivity类似，不过需要重写onCreateView方法，需要注意Fragment的容器是Activcity，不需要每次创建一个新的Fragment都添加emptyView
+##### 3. EmptyFragment与EmptyActivity类似，不过需要重写onCreateView方法，需要注意Fragment的容器是Activcity，不需要每次创建一个新的Fragment都添加emptyView
 如果在fragment中获取父容器，我还没有一个好的办法，目前能想到的就是通过getActivity().findViewById(R.id.container);这么做就需要固定父容器的id为container，本人不喜欢
 > 通过方法2和3的方法可以打开思路，比如添加一个toolbar，还有我采用的方法4。
+<br>
 
-4. __我所用的方法__：方法2和3思路就是得到一个父容器然后再添加需要展示的view和emptyView，那我就自定义一个父容器，本身包括emptyView并暴露方法，在需要展示emptyView的layout中使用自定的的父容器。代码如下
+##### 4. __我所用的方法__：方法2和3思路就是得到一个父容器然后再添加需要展示的view和emptyView，那我就自定义一个父容器，本身包括emptyView并暴露方法，在需要展示emptyView的layout中使用自定的的父容器。代码如下
 ```
 public class NoNetFrameLayout extends FrameLayout {
 
@@ -123,9 +127,11 @@ public class NoNetFrameLayout extends FrameLayout {
 1. emptyView的layout必须要设置一个背景颜色，否则就会显示下面的View
 2. 需要显示的view，必须用一个布局包起来，否则就会显示下面的View
 >用法很简单就不多介绍了，只要注意以上两点就行，看不懂的可以去看例子中的注释
+<br>
 
-5. 别人提供的方法：Activity layout中添加emptyView，如果Fragment需要显示emptyView，向Activity发送消息，hide fragment，show emptyView，点击事件通过接口回调
+##### 5. 别人提供的方法：Activity layout中添加emptyView，如果Fragment需要显示emptyView，向Activity发送消息，hide fragment，show emptyView，点击事件通过接口回调
 > 个人觉得麻烦，需要fragment和activity来回调用方法，不喜欢
+<br>
 
 ## 总结
 * 方法1太麻烦，不推荐
